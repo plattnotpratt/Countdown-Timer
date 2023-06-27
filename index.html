@@ -1,11 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"/>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Countdown Timer</title>
 </head>
 <body>
-  
+  <main class="container">
+    <form>
+      <label for="hours">Hours</label>
+      <input type="number" name="hours" id="hours" placeholder="Hours">
+      <label for="minutes">Minutes</label>
+      <input type="number" name="minutes" id="minutes" placeholder="Minutes">
+      <label for="seconds">Seconds</label>
+      <input type="number" name="seconds" id="seconds" placeholder="Seconds">
+      <input type="submit" name="submit" id="submit" value="Start Timer">
+    </form>
+    <h1 id="timer"></h1>
+  </main>
+  <script>
+    
+    document.getElementById('submit').addEventListener('click', (e) => {
+      e.preventDefault();
+      let hours = parseInt(document.getElementById('hours').value);
+      let minutes = parseInt(document.getElementById('minutes').value);
+      let seconds = parseInt(document.getElementById('seconds').value);
+      const totalSeconds = hoursToSeconds(hours) + minsToSeconds(minutes) + checkSeconds(seconds);
+      console.log(secondsToTimerObject(totalSeconds));
+    })
+    function hoursToSeconds(h){
+      if(isNaN(h)){
+        return 0;
+      }else{
+        return h * 60 * 60;
+      }
+    }
+    function minsToSeconds(m){
+      if(isNaN(m)){
+        return 0;
+      }else{
+        return m * 60;
+      }
+    }
+    function checkSeconds(s){
+      if(isNaN(s)){
+        return 0;
+      }else{
+        return s;
+      }
+    }
+    function secondsToTimerObject(totalSeconds){
+      const hours = parseInt(totalSeconds / 3600);
+      const minutes = parseInt((totalSeconds % 3600) / 60);
+      const seconds = parseInt(((totalSeconds % 3600) % 60));
+
+      return { hours, minutes, seconds }
+    }
+  </script>
 </body>
 </html>
