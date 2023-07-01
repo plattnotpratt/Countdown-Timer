@@ -1,43 +1,22 @@
-const timer = document.getElementById('timer');
-const stopButton = document.getElementById('stop-timer');
+const timerWrapper = document.getElementById('timer-wrapper');
 const submitButton = document.getElementById('submit');
 const hoursField = document.getElementById('hours');
 const minutesField = document.getElementById('minutes');
 const secondsField = document.getElementById('seconds');
-let intervals = [];
-let stop = false;
-let totalSeconds = 0;
+let timers = [];
 
 submitButton.addEventListener('click', (e) => {
   e.preventDefault();
   let hours = parseInt(hoursField.value);
   let minutes = parseInt(minutesField.value);
   let seconds = parseInt(secondsField.value);
-  totalSeconds = hoursToSeconds(hours) + minsToSeconds(minutes) + checkSeconds(seconds);
-  fieldClearDisableSubmit();
-  runTimer(totalSeconds);
+  let totalSeconds = hoursToSeconds(hours) + minsToSeconds(minutes) + checkSeconds(seconds);
+  let createdTimer = document.createElement('div');
+  console.log(createdTimer);
+  createdTimer.classList.add('timer', `timer-${timers.length}`);
+  timerWrapper.appendChild(createdTimer);
+  timers.push(new Timer(totalSeconds, createdTimer));
 });
-
-stopButton.addEventListener('click', (e) => {
-  stop = !stop;
-  if(stop){
-    stopButton.innerText = "Resume Timer";
-    
-  }else{
-    stopButton.innerText = "Stop Timer"
-    runTimer(totalSeconds)
-  }
-})
-
-function runTimer(){
-  totalSeconds -= 1;
-  const timerObj = secondsToTimerObject(totalSeconds)
-  timer.innerHTML = `<h1>${timerObj.hours}:${timerObj.minutes}.${timerObj.seconds}</h1>`;
-  
-  if(!stop){
-    setTimeout(runTimer, 1000);
-  }
-}
 
 function hoursToSeconds(h){
   if(isNaN(h)){
@@ -60,17 +39,20 @@ function checkSeconds(s){
     return s;
   }
 }
-function fieldClearDisableSubmit(){
-  submitButton.setAttribute("disabled", "");
-  hoursField.value = "";
-  minutesField.value = "";
-  secondsField.value = "";
-}
-function secondsToTimerObject(totalSeconds){
-  const hours = parseInt(totalSeconds / 3600);
-  const minutes = parseInt((totalSeconds % 3600) / 60);
-  const seconds = parseInt(((totalSeconds % 3600) % 60));
 
-  return { hours, minutes, seconds }
-}
+// function fieldClearDisableSubmit(){
+//   submitButton.setAttribute("disabled", "");
+//   hoursField.value = "";
+//   minutesField.value = "";
+//   secondsField.value = "";
+// }
+// function secondsToTimerObject(totalSeconds){
+ 
+//   const state = true;
+//   const interval = null;
+//   const ended = false;
+
+//   return {totalSeconds, hours, minutes, seconds, state, interval, ended }
+// }
+
 

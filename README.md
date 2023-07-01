@@ -10,4 +10,6 @@
   - [ ] Verify there is some value when start button is clicked
   - [ ] 
 - [ ] Add timer to window on submit
-- [ ] 
+- [x] Add a pause/resume button
+- [ ] Add a delete timer button
+
