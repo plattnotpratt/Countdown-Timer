@@ -1,6 +1,6 @@
 class Timer{
 
-  constructor(totalseconds, container){
+  constructor(totalseconds, container, controlButton, deleteButton, timerText){
     this.totalSeconds = totalseconds;
     this.hours = parseInt(this.totalSeconds / 3600);
     this.minutes = parseInt((this.totalSeconds % 3600) / 60);
@@ -8,6 +8,21 @@ class Timer{
     this.isPaused = false;
     this.isEnded = false;
     this.container = container;
+    this.controlButton = controlButton;
+    this.timerText = timerText;
+    this.updateTimer(this);
+    this.controlButton.addEventListener('click', (e) => {
+      this.isPaused = !this.isPaused;
+      
+      if(this.isPaused){
+        this.controlButton.innerText = "Resume Timer";
+        this.controlButton.classList.toggle('outline');
+      }else{
+        this.controlButton.innerText = "Stop Timer"
+        this.controlButton.classList.toggle('outline');
+      }
+    });
+    this.deleteButton = deleteButton;
     this.interval = setInterval(this.updateTimer, 1000, this);
   }
 
@@ -27,18 +42,9 @@ class Timer{
     timer.hours = parseInt(timer.totalSeconds / 3600);
     timer.minutes = parseInt((timer.totalSeconds % 3600) / 60);
     timer.seconds = parseInt(((timer.totalSeconds % 3600) % 60));
-    timer.container.innerHTML = `<h1>${timer.hours}:${timer.minutes}.${timer.seconds}</h1>`;
+    timer.timerText.innerText = `${timer.hours}:${timer.minutes}.${timer.seconds}`;
   }
+
   
-  // stopButton.addEventListener('click', (e) => {
-  //   stop = !stop;
-  //   if(stop){
-  //     stopButton.innerText = "Resume Timer";
-      
-  //   }else{
-  //     stopButton.innerText = "Stop Timer"
-  //     runTimer(totalSeconds)
-  //   }
-  // })
 
 }

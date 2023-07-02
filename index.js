@@ -11,11 +11,27 @@ submitButton.addEventListener('click', (e) => {
   let minutes = parseInt(minutesField.value);
   let seconds = parseInt(secondsField.value);
   let totalSeconds = hoursToSeconds(hours) + minsToSeconds(minutes) + checkSeconds(seconds);
-  let createdTimer = document.createElement('div');
-  console.log(createdTimer);
-  createdTimer.classList.add('timer', `timer-${timers.length}`);
-  timerWrapper.appendChild(createdTimer);
-  timers.push(new Timer(totalSeconds, createdTimer));
+  if(totalSeconds > 0){
+    const createdTimer = document.createElement('div');
+    const timerText = document.createElement('h1');
+    const controlButton = document.createElement('button');
+    const deleteButton = document.createElement('button');
+    controlButton.innerHTML="Stop Timer";
+    deleteButton.innerHTML="Delete Timer";
+    createdTimer.classList.add('timer', `timer-${timers.length}`, 'grid');
+    controlButton.classList.add('timer-control-button', `timer-control-button-${timers.length}`,'secondary', 'outline');
+    deleteButton.classList.add('timer-delete-button', `timer-delete-button-${timers.length}`);
+    timerText.classList.add('timer-text', `timer-text-${timers.length}`);
+    createdTimer.appendChild(timerText);
+    createdTimer.appendChild(controlButton);
+    createdTimer.appendChild(deleteButton);
+    timerWrapper.appendChild(createdTimer);
+    timers.push(new Timer(totalSeconds, createdTimer,controlButton, deleteButton, timerText));
+
+    fieldClearOnSubmit();
+  }else{
+    alert('please add a timer amount');
+  }
 });
 
 function hoursToSeconds(h){
@@ -40,12 +56,11 @@ function checkSeconds(s){
   }
 }
 
-// function fieldClearDisableSubmit(){
-//   submitButton.setAttribute("disabled", "");
-//   hoursField.value = "";
-//   minutesField.value = "";
-//   secondsField.value = "";
-// }
+function fieldClearOnSubmit(){
+  hoursField.value = "";
+  minutesField.value = "";
+  secondsField.value = "";
+}
 // function secondsToTimerObject(totalSeconds){
  
 //   const state = true;

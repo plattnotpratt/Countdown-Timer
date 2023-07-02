@@ -7,9 +7,11 @@
   - [x] Minutes
   - [x] Seconds
   - [x] Submit
-  - [ ] Verify there is some value when start button is clicked
-  - [ ] 
-- [ ] Add timer to window on submit
-- [x] Add a pause/resume button
-- [ ] Add a delete timer button
-
+  - [x] Clear Input Field after timer is created
+- [x] Add timer to window on submit
+- [x] Create the ability to have multiple timers running at once.
+  - [x] Verify there is some value when start button is clicked
+  - [x] Add a pause/resume button
+  - [ ] Add a delete timer button
+- [ ] Refactor index.js file
+- [ ] Refactor timer.js file
