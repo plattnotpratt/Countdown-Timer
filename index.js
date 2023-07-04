@@ -12,22 +12,7 @@ submitButton.addEventListener('click', (e) => {
   let seconds = parseInt(secondsField.value);
   let totalSeconds = hoursToSeconds(hours) + minsToSeconds(minutes) + checkSeconds(seconds);
   if(totalSeconds > 0){
-    const createdTimer = document.createElement('div');
-    const timerText = document.createElement('h1');
-    const controlButton = document.createElement('button');
-    const deleteButton = document.createElement('button');
-    controlButton.innerHTML="Stop Timer";
-    deleteButton.innerHTML="Delete Timer";
-    createdTimer.classList.add('timer', `timer-${timers.length}`, 'grid');
-    controlButton.classList.add('timer-control-button', `timer-control-button-${timers.length}`,'secondary', 'outline');
-    deleteButton.classList.add('timer-delete-button', `timer-delete-button-${timers.length}`);
-    timerText.classList.add('timer-text', `timer-text-${timers.length}`);
-    createdTimer.appendChild(timerText);
-    createdTimer.appendChild(controlButton);
-    createdTimer.appendChild(deleteButton);
-    timerWrapper.appendChild(createdTimer);
-    timers.push(new Timer(totalSeconds, createdTimer,controlButton, deleteButton, timerText));
-
+    timers.push( buildTimer(totalSeconds, timers.length) );
     fieldClearOnSubmit();
   }else{
     alert('please add a timer amount');
@@ -70,4 +55,22 @@ function fieldClearOnSubmit(){
 //   return {totalSeconds, hours, minutes, seconds, state, interval, ended }
 // }
 
-
+function buildTimer(totalSeconds, count){
+  const createdTimer = document.createElement('div');
+  const timerText = document.createElement('h1');
+  const controlButton = document.createElement('button');
+  const deleteButton = document.createElement('button');
+  controlButton.innerHTML="Stop Timer";
+  deleteButton.innerHTML="Delete Timer";
+  createdTimer.classList.add('timer', `timer-${count}`, 'grid');
+  controlButton.classList.add('timer-control-button', `timer-control-button-${count}`,'secondary', 'outline');
+  deleteButton.classList.add('timer-delete-button', `timer-delete-button-${count}`);
+  timerText.classList.add('timer-text', `timer-text-${count}`);
+  createdTimer.appendChild(timerText);
+  createdTimer.appendChild(controlButton);
+  createdTimer.appendChild(deleteButton);
+  timerWrapper.appendChild(createdTimer);
+  const timer = new Timer(totalSeconds, createdTimer,controlButton, deleteButton, timerText);
+  console.log(timer);
+  return timer;
+}

@@ -1,5 +1,14 @@
 class Timer{
-
+  totalSeconds;
+  hours;
+  minutes;
+  seconds;
+  isPaused ;
+  isEnded ;
+  container;
+  controlButton;
+  timerText;
+  
   constructor(totalseconds, container, controlButton, deleteButton, timerText){
     this.totalSeconds = totalseconds;
     this.hours = parseInt(this.totalSeconds / 3600);
